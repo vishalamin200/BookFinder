@@ -12,14 +12,18 @@ const Home = () => {
 
       const response = fetch(`https://openlibrary.org/search.json?${query}`);
 
-      toast.promise(response,{
-        loading:"Fetching Book...",
-        success:"Book Fetched Successfully",
-        error:(err)=>err?.response?.data?.message || "Error In Fetching Book"
-      })
-
+      toast.loading("Fetching Book...")
+      
       const res= await response
       const data = await res.json();
+
+      if(data?.numFound == 0){
+        toast.dismiss()
+        toast("Book Not Found!")
+      }else{
+        toast.dismiss()
+        toast.success("Book Fetched Successfully")
+      }
       
       const booksData = data.docs.slice(0, 10).map((book) => ({
         title: book.title,
