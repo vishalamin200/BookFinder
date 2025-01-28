@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "../styles/BookSearchForm.css";
+import PropTypes from 'prop-types'
 
 const BookSearchForm = ({ onSearch }) => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const BookSearchForm = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const query = Object.entries(formData)
-      .filter(([key, value]) => value.trim() !== "")
+      .filter(([key,value]) => value.trim() !== "")
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .join("&");
     onSearch(query);
@@ -59,6 +60,17 @@ const BookSearchForm = ({ onSearch }) => {
         <select id="language" name="language" onChange={handleChange}>
           <option value="">Any</option>
           <option value="eng">English</option>
+          <option value="hin">Hindi</option>
+          <option value="guj">Gujarati</option>
+          <option value="mar">Marathi</option>
+          <option value="ben">Bengali</option>
+          <option value="tam">Tamil</option>
+          <option value="tel">Telugu</option>
+          <option value="kan">Kannada</option>
+          <option value="mal">Malayalam</option>
+          <option value="tgl">Tagalog</option>
+          <option value="ind">Indonesian</option>
+          <option value="ita">Italian</option>
           <option value="fre">French</option>
           <option value="ger">German</option>
           <option value="spa">Spanish</option>
@@ -68,5 +80,9 @@ const BookSearchForm = ({ onSearch }) => {
     </form>
   );
 };
+
+BookSearchForm.propTypes = {
+  onSearch: PropTypes.string
+}
 
 export default BookSearchForm;
